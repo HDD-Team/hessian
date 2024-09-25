@@ -1,5 +1,2 @@
-setuptools
-wheel
 flet
 sympy
-numpy

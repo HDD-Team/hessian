@@ -1,9 +1,9 @@
 # A hessian Flet app
-
-An example of a minimal Flet app.
-
-To run the app:
-
+## YOU MUST BE RUN COMMNADS:
 ```
-flet run [app_directory]
+export CHROME_EXECUTABLE=/usr/bin/chromedriver
+export PATH="$PATH:/usr/lib/flutter/bin"
+export FLUTTER_ROOT="/usr/lib/flutter
+export ANDROID_HOME=/home/user/Android/Sdk
+#and you must be use venv with flet
 ```
