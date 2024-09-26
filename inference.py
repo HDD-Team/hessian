@@ -17,8 +17,9 @@ def cheat(f_str, symbols_str):
 
     H = sp.Matrix([[sp.diff(df, s2) for s2 in symbols] for df in diffs])
     ret += (f"\nГессиан:\n{H}\n-----------------------------------------\n")
-
+    
     for point in critical_points:
+        sed = False
         ret += (f"\nКритическая точка {point}")
         H_num = H.subs(point)
         ret += (f"\nГессиан в точке:\n{H_num}")
@@ -26,31 +27,30 @@ def cheat(f_str, symbols_str):
         # Определение знаков главных миноров
         is_positive_definite = True
         is_negative_definite = True
+        minors = []
         for k in range(1, len(symbols)+1):
-            minor = H_num[:k, :k].det()
-            ret += (f"\nМинор порядка {k}: {minor}")
-            minor_value = minor
-            if minor_value.is_positive:
-                is_negative_definite = False
-            elif minor_value.is_negative:
-                is_positive_definite = False
-            else:
-                is_positive_definite = is_negative_definite = False
+            minor = H_num[:len(symbols)+1-k, :len(symbols)+1-k].det()
+            ret += (f"\nМинор порядка {len(symbols)+1-k}: {minor}\n {H_num}")
+            if minor < 0:
+                sed = True
                 break
+            minors.append(minor)
+                
 
-        if is_positive_definite:
+        if sed:
+            ret += ("\nседловая(не является экстр)\n-----------------------------------------\n")
+        elif all(x > 0 for x in minors):
             ret += ("\nминимум\n-----------------------------------------\n")
-        elif is_negative_definite:
-            ret += ("\nмаксимум\n-----------------------------------------\n")
         else:
-            ret += ("\nседловая\n-----------------------------------------\n")
+            ret += ("\nмаксисум\n-----------------------------------------\n")
     return ret
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('func', help="Функция, например, 'x**2 + y**2'")
-    parser.add_argument('symbols', help="Переменные, например, 'x y'")
-    args = parser.parse_args()
-
-    cheat(args.func, args.symbols)
-
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('func', help="Функция, например, 'x**2 + y**2'")
+    # parser.add_argument('symbols', help="Переменные, например, 'x y'")
+    # args = parser.parse_args()
+    # print(args.func, args.symbols)
+    #
+    # cheat(args.func, args.symbols)
+    print(cheat("-3*x**3+y**2+x+3+y+2", "x y"))

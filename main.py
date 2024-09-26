@@ -12,16 +12,12 @@ def main(page: Page):
 
 
     def inf(e):
-        f = func.value
-        s = symb.value
-        s = s.replace(',', '')
-        if ' ' not in s:
-            s = list(s)
-            print(s)
-            s = ' '.join(s)
-
-        print(f)
-        print(s)
+        f:str = str(func.value)
+        s = []
+        for symb in list("qwertyuioplkjhgfdsazxcvbnm"):
+            if symb in f:
+                s.append(symb)
+        s = " ".join(s)
         ans = cheat(f,s)
         text.value=ans
         page.update()
@@ -29,7 +25,7 @@ def main(page: Page):
 
 
     symb = TextField(value="", hint_text="enter the symbols etc: 'abc' ", color=m_col, on_submit=inf)
-    func = TextField(value="", hint_text='enter the function in python like style', color=m_col, autofocus=True, on_submit=lambda _:symb.focus())
+    func = TextField(value="", hint_text='enter the function in python like style', color=m_col, autofocus=True, on_submit=inf)
     text = Text(value='', color=m_col)
 
     upper = Container(
@@ -53,7 +49,6 @@ def main(page: Page):
                     [
                         Container(height=100),
                         func,
-                        symb,
                         text,
                     ],
                     #alignment=alignment.center,
