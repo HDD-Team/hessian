@@ -5,6 +5,7 @@ from inference import cheat
 
 def main(page: Page):
     page.title = 'Hessian'
+    page.scroll = "auto"
     page.bgcolor = '#F2F2F2'
     m_col = '#243B55'
     a_col = '#4D9DE0'
@@ -24,9 +25,8 @@ def main(page: Page):
 
 
 
-    symb = TextField(value="", hint_text="enter the symbols etc: 'abc' ", color=m_col, on_submit=inf)
     func = TextField(value="", hint_text='enter the function in python like style', color=m_col, autofocus=True, on_submit=inf)
-    text = Text(value='', color=m_col)
+    text = Text(value='', color=m_col, size=30)
 
     upper = Container(
         Row(

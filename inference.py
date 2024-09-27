@@ -19,7 +19,6 @@ def cheat(f_str, symbols_str):
     ret += (f"\nГессиан:\n{H}\n-----------------------------------------\n")
     
     for point in critical_points:
-        sed = False
         ret += (f"\nКритическая точка {point}")
         H_num = H.subs(point)
         ret += (f"\nГессиан в точке:\n{H_num}")
@@ -30,19 +29,16 @@ def cheat(f_str, symbols_str):
         minors = []
         for k in range(1, len(symbols)+1):
             minor = H_num[:len(symbols)+1-k, :len(symbols)+1-k].det()
-            ret += (f"\nМинор порядка {len(symbols)+1-k}: {minor}\n {H_num}")
-            if minor < 0:
-                sed = True
-                break
+            ret += (f"\nМинор порядка {len(symbols)+1-k}: {minor}\n {H_num[:len(symbols)+1-k, :len(symbols)+1-k]}")
             minors.append(minor)
                 
 
-        if sed:
-            ret += ("\nседловая(не является экстр)\n-----------------------------------------\n")
+        if all(x < 0 for x in minors):
+            ret += ("\nмаксисум\n-----------------------------------------\n")
         elif all(x > 0 for x in minors):
             ret += ("\nминимум\n-----------------------------------------\n")
         else:
-            ret += ("\nмаксисум\n-----------------------------------------\n")
+            ret += ("\nседловая(не является экстр)\n-----------------------------------------\n")
     return ret
 
 if __name__ == "__main__":
