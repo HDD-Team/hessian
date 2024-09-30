@@ -14,6 +14,7 @@ def main(page: Page):
 
     def inf(e):
         f:str = str(func.value)
+        f = f.replace('^', '**')
         s = []
         for symb in list("qwertyuioplkjhgfdsazxcvbnm"):
             if symb in f:

@@ -31,14 +31,13 @@ def cheat(f_str, symbols_str):
             minor = H_num[:len(symbols)+1-k, :len(symbols)+1-k].det()
             ret += (f"\nМинор порядка {len(symbols)+1-k}: {minor}\n {H_num[:len(symbols)+1-k, :len(symbols)+1-k]}")
             minors.append(minor)
-                
-
+    
         if all(x < 0 for x in minors):
-            ret += ("\nмаксисум\n-----------------------------------------\n")
+            ret += ("\nмаксимум\n-----------------------------------------\n")
         elif all(x > 0 for x in minors):
             ret += ("\nминимум\n-----------------------------------------\n")
         else:
-            ret += ("\nседловая(не является экстр)\n-----------------------------------------\n")
+            ret += ("\nседловая(не является экстр или\nтребует другого метода анализа)\n-----------------------------------------\n")
     return ret
 
 if __name__ == "__main__":
